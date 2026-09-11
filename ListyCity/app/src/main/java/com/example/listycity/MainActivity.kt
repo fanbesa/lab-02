@@ -32,6 +32,8 @@ import androidx.lifecycle.ViewModel
 import com.example.listycity.ui.theme.ListyCityTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.Alignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +105,10 @@ fun CityListScreen(
     // this is all in one composable
 
     Column(modifier = modifier.fillMaxSize()) {
-        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             if (addCityClick != null) {   // only show text bar w/ confirm if user chooses to add city
                 OutlinedTextField(
                     value = newCityName,
@@ -125,7 +130,7 @@ fun CityListScreen(
                     Text("Confirm")
                 }
 
-                Spacer(modifier = Modifier.width(2.dp))
+                Spacer(modifier = Modifier.width(7.dp))
 
                 Button (   // done button that lets users stop adding cities and remove text bar
                     onClick = {
@@ -136,7 +141,7 @@ fun CityListScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.width(15.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -145,7 +150,8 @@ fun CityListScreen(
             Button(
                 onClick = {
                     addCityClick = ""
-                }
+                },
+                modifier = Modifier.width(180.dp)
             ) {
                 Text("Add City")
             }
@@ -158,12 +164,15 @@ fun CityListScreen(
                         onDeleteCity(statusViewModel.deleteCity)
                         statusViewModel.deleteCity = ""  // make the string blank to reuse once city has been deleted
                     }
-                }
+                },
+                modifier = Modifier.width(180.dp)
             ) {
                 Text("Delete City")
             }
         }
-        LazyColumn(modifier = modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize()
+        ) {
             items(cities) {city ->
                 CityRow(city = city,
                     statusViewModel = statusViewModel
