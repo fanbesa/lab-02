@@ -92,6 +92,23 @@ class CityRepository {
     }
 }
 
+/* 
+   Author: Pferdesalbe (https://stackoverflow.com/users/16096509/pferdesalbe)
+   Title: Jetpack Compose correct accessing of data from ViewModel
+   Answer: https://stackoverflow.com/questions/73773689/jetpack-compose-correct-accessing-of-data-from-viewmodel
+   Date: 2026-09-11
+   License: CC-BY-SA 4.0 (International)
+*/
+
+/* 
+   Author: Sander https://stackoverflow.com/users/16848647/sander
+   Title: Trying to get ViewModel in @Composable
+   Answer: https://stackoverflow.com/questions/69477628/trying-to-get-viewmodel-in-composable
+   Date: 2026-09-11
+   License: CC-BY-SA 4.0 (International)
+*/
+
+// The calling and use of the view model was based off Pferdesalbe and Sander's examples in Stack Overflow 
 @Composable
 fun CityListScreen(
     cities: List<String>,
@@ -101,12 +118,14 @@ fun CityListScreen(
     statusViewModel: StatusViewModel = viewModel()
 ) {
     var newCityName by remember {mutableStateOf(value = "") }
+    // Used remember method based on information from Android Developers at https://developer.android.com/develop/ui/compose/state
     var addCityClick by remember {mutableStateOf<String?>(value=null) } // don't need view model because
     // this is all in one composable
 
     Column(modifier = modifier.fillMaxSize()) {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp),
+            // Added Alignment based on information/examples from Android Developers at https://developer.android.com/develop/ui/compose/layouts/basics
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (addCityClick != null) {   // only show text bar w/ confirm if user chooses to add city
@@ -145,6 +164,7 @@ fun CityListScreen(
 
         Row(
             modifier = Modifier.fillMaxWidth(),
+            // Added Arrangement based on information/examples from Android Developers at https://developer.android.com/develop/ui/compose/layouts/basics
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
@@ -205,6 +225,14 @@ fun CityRow(
     }
 }
 
+/* 
+   Author: Richard Onslow Roper https://stackoverflow.com/users/15880865/richard-onslow-roper
+   Title: Android Jetpack Passing Data Between Composables
+   Answer: https://stackoverflow.com/questions/68200357/android-jetpack-passing-data-between-composables
+   Date: 2021-07-01
+   License: CC-BY-SA 4.0 (International)
+*/
+// Format of class and variable was based on example provided by Richard Onslow Roper in Stack Overflow
 class StatusViewModel: ViewModel(){ // view model allows data to move between composable so that city button can communicate to the delete button
     var deleteCity by mutableStateOf("")
 }
